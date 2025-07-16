@@ -1,5 +1,10 @@
 ## 📄 `README.md`
 
+- ##### Streamlit Documentation: https://docs.streamlit.io/
+- ##### It supports `python version 3.9 to 3.13`.
+
+ supports python version 3.9 to 3.13.
+
 ### Streamlit Hello World App
 
 #### 🐍 1. Create a Conda Environment
@@ -69,3 +74,5 @@ Try editing your `hello.py` and re-running `streamlit run hello.py` to see the c
 * To stop the app, press `Ctrl+C` in your terminal.
 * Streamlit auto-updates when you save your file.
 * You can build powerful dashboards, ML apps, and data visualizations using Streamlit.
+
+![Hello World App!](image.png)
