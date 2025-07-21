@@ -134,4 +134,4 @@ The Code Interpreter opens up a vast array of practical use cases across various
 
 By seamlessly integrating coding capabilities, the Assistants API's Code Interpreter empowers developers to build highly sophisticated AI applications that can not only understand and generate language but also perform complex, accurate, and verifiable computational tasks.
 
-![alt text](image-1.png)
+![alt text](image2.png)
