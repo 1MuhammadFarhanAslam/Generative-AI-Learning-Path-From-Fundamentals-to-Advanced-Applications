@@ -29,10 +29,6 @@ When you enable File Search for an Assistant and upload relevant documents, Open
 
 ---
 
-You're correct in your understanding of file accessibility within the OpenAI Assistants API. The scope of file access depends on where the file is attached:
-
----
-
 ### **File Accessibility in OpenAI Assistants API: Thread-Level vs. Assistant-Level**
 
 The OpenAI Assistants API provides two distinct ways to attach files for use with tools like **File Search** (formerly Retrieval) and **Code Interpreter**: at the Assistant level and at the Thread level. The choice between these two methods dictates the scope of accessibility and the primary use case for the uploaded files.
