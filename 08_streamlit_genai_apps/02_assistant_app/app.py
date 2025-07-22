@@ -1,7 +1,7 @@
 import streamlit as st 
 from model import OpenAIBot, MessageItem
 
-st.set_page_config(page_title="Math Tutor", page_icon=":speech_balloon:")
+st.set_page_config(page_title="Math Tutor", page_icon=":speech_balloon:", layout="wide")
 
 st.title('Math Tutor')
 st.write("Tutor Will Help You Answer Math Questions")
