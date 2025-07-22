@@ -65,7 +65,7 @@ if not selected_chat:
     st.info("Start by creating a new chat from the sidebar.")
     st.stop()
 
-st.markdown(f"### 📝 {selected_chat['title']}")
+# st.markdown(f"##### 📝 {selected_chat['title']}")
 
 # --- Display chat messages ---
 for msg in selected_chat["messages"]:
