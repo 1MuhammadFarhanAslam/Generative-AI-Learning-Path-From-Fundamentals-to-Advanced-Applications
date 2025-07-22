@@ -10,4 +10,4 @@ Install streamlit package
 
 Open http://localhost:8501/
 
-![alt text](image-1.png)
+![alt text](image.png)
