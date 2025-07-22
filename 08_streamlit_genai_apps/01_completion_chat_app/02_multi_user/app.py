@@ -19,9 +19,8 @@ import openai
 load_dotenv()
 
 st.set_page_config(page_title="Multi-User Chatbot", layout="wide")
-st.title("🧠 Multi-User Chatbot powered by OpenAI LLM developed by Muhammad Farhan Aslam!")
+st.title("Multi-User Chatbot powered by OpenAI LLM developed by Muhammad Farhan Aslam")
 
-# Basic constants
 USER_AVATAR = "👤"
 BOT_AVATAR = "🤖"
 
@@ -31,7 +30,6 @@ if not api_key:
     st.warning("Please enter your API key to start chatting.")
     st.stop()
 
-# Set API key for OpenAI
 openai.api_key = api_key
 
 # --- USER ID ---
@@ -42,10 +40,9 @@ if "chat_ids" not in st.session_state:
     st.session_state.chat_ids = list_chat_ids_for_user(user_id)
 
 if "selected_chat_id" not in st.session_state:
-    if st.session_state.chat_ids:
-        st.session_state.selected_chat_id = st.session_state.chat_ids[0]
-    else:
-        st.session_state.selected_chat_id = None
+    st.session_state.selected_chat_id = (
+        st.session_state.chat_ids[0] if st.session_state.chat_ids else None
+    )
 
 # --- SIDEBAR: CHAT LIST ---
 st.sidebar.markdown("## 💬 Your Chats")
@@ -60,7 +57,7 @@ if st.sidebar.button("➕ New Chat"):
     new_id = create_new_chat(user_id)
     st.session_state.chat_ids.insert(0, new_id)
     st.session_state.selected_chat_id = new_id
-    st.rerun()  # already correct if you're using updated Streamlit
+    st.rerun()
 
 # --- MAIN CHAT AREA ---
 selected_chat = get_chat_by_id(user_id, st.session_state.selected_chat_id)
@@ -85,26 +82,31 @@ if user_input:
     with st.chat_message("user", avatar=USER_AVATAR):
         st.markdown(user_input)
 
-    # Generate assistant response using OpenAI ChatCompletion API v1.0+
+    # Streaming assistant reply
     try:
-        response = openai.chat.completions.create(
-            model="gpt-4",
-            messages=selected_chat["messages"]
-        ).choices[0].message.content.strip()
+        response = ""
+        with st.chat_message("assistant", avatar=BOT_AVATAR):
+            message_placeholder = st.empty()
+            stream = openai.chat.completions.create(
+                model="gpt-4",
+                messages=selected_chat["messages"],
+                stream=True
+            )
+            for chunk in stream:
+                delta = chunk.choices[0].delta.content or ""
+                response += delta
+                message_placeholder.markdown(response + "▌")
+            message_placeholder.markdown(response)
     except Exception as e:
         response = f"❌ Error: {str(e)}"
+        with st.chat_message("assistant", avatar=BOT_AVATAR):
+            st.markdown(response)
 
-    # Add assistant reply
+    # Save assistant message
     selected_chat["messages"].append({"role": "assistant", "content": response})
-
-    # Display assistant reply
-    with st.chat_message("assistant", avatar=BOT_AVATAR):
-        st.markdown(response)
-
-    # Save updated chat
     save_chat_by_id(user_id, st.session_state.selected_chat_id, selected_chat)
 
-# --- Chat Options ---
+# --- Delete Chat ---
 if st.sidebar.button("🗑️ Delete Chat"):
     if st.session_state.selected_chat_id:
         delete_chat_by_id(user_id, st.session_state.selected_chat_id)
@@ -112,7 +114,7 @@ if st.sidebar.button("🗑️ Delete Chat"):
         st.session_state.selected_chat_id = (
             st.session_state.chat_ids[0] if st.session_state.chat_ids else None
         )
-        st.rerun()  # ✅ change this too if not already
+        st.rerun()
 
 # --- Rename Chat Title ---
 new_title = st.sidebar.text_input("✏️ Rename Chat", value=selected_chat['title'])
