@@ -10,4 +10,6 @@ Install streamlit package
 
 Open http://localhost:8501/
 
-![alt text](chatbot.png)
+--- 
+
+![alt text](image.png)
