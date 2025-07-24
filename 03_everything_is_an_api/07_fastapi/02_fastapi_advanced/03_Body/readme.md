@@ -99,4 +99,4 @@ async def login(username: str = Body(...), password: str = Body(...)):
   * **`Query`**: Used for parameters that come after the `?` in the URL (e.g., `/items/?limit=10`).
   * **`Body`**: Used for data sent in the HTTP request's message body, typically for `POST`, `PUT`, or `PATCH` requests. This is where you send complex data structures like JSON objects.
 
-![alt text](image.png)
+![alt text](image-1.png)
