@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+pydantic
+passlib[bcrypt]         # For password hashing
+python-jose[cryptography] # For JWT (JSON Web Tokens)
+openai                  # For interacting with OpenAI's API
+asyncpg                 # For asynchronous PostgreSQL database interaction (recommended for FastAPI)
+python-multipart
