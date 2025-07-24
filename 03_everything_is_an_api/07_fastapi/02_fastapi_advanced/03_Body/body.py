@@ -5,8 +5,7 @@ from typing import Dict
 
 app = FastAPI(
     title="FastAPI Body Parameter Demo",
-    description="Demonstrates using `FastAPI.Body` with `embed=True`, string validation, "
-                "and correctly formatted `examples` for Swagger UI.",
+    description="Demonstrates using `FastAPI.Body` with `embed=True` and string validation.",
     version="1.0.0"
 )
 
@@ -23,12 +22,7 @@ def greet(
         min_length=2, # Enforce a minimum length of 2 characters
         max_length=50, # Enforce a maximum length of 50 characters
         regex="^[a-zA-Z ]+$", # Strict content check: only allows English letters (a-z, A-Z) and spaces
-
-        # --- Corrected 'examples' parameter for Swagger UI ---
-        # 'examples' must be a LIST of dictionaries.
-        # Each dictionary represents a single example that will appear in the Swagger UI dropdown.
-        # The 'value' key within each example dictionary must contain the ENTIRE JSON body
-        # that the endpoint expects.
+        # Removed the 'examples' parameter as requested.
     )
 ) -> Dict[str, str]:
     """
@@ -46,5 +40,4 @@ def greet(
 if __name__ == "__main__":
     import uvicorn
     # Make sure 'body:app' matches your Python file name (e.g., body.py)
-    # If your file is main.py, change this to "main:app"
     uvicorn.run("body:app", host="127.0.0.1", port=8000, reload=True)
