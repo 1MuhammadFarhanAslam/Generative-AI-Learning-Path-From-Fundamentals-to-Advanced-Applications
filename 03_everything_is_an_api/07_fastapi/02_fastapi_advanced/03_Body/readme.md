@@ -1,7 +1,3 @@
-Here's an article-style explanation of `FastAPI.Body`, focusing on its core concept and use cases.
-
------
-
 ## Understanding `FastAPI.Body`: Defining Request Body Parameters
 
 In modern web APIs, especially those following RESTful principles, data is often sent to the server in the **request body** for operations like creating new resources (`POST`) or updating existing ones (`PUT`/`PATCH`). FastAPI provides the `Body` dependency to clearly define and validate these parameters.
