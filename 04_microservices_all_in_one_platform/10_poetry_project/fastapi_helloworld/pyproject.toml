@@ -1,5 +1,5 @@
 [project]
-name = "farhan-poetry-project"
+name = "fastapi-helloworld"
 version = "0.1.0"
 description = ""
 authors = [
@@ -8,14 +8,13 @@ authors = [
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
-    "requests (>=2.32.4,<3.0.0)",
-    "pytest (>=8.4.1,<9.0.0)",
-    "fastapi (>=0.116.1,<0.117.0)",
-    "uvicorn[standard] (>=0.35.0,<0.36.0)"
+    "fastapi[standard] (>=0.116.1,<0.117.0)",
+    "uvicorn[standard] (>=0.35.0,<0.36.0)",
+    "pytest (>=8.4.1,<9.0.0)"
 ]
 
 [tool.poetry]
-packages = [{include = "farhan_poetry_project", from = "src"}]
+packages = [{include = "fastapi_helloworld", from = "src"}]
 
 
 [build-system]

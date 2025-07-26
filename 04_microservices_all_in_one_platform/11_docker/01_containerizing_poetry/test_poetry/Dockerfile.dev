@@ -1,0 +1,31 @@
+FROM python:3.13-slim
+
+LABEL maintainer="Muhammad Farhan Aslam"
+
+# Set Poetry version and disable virtualenvs (use system Python)
+ENV POETRY_VERSION=2.1.3 \
+    POETRY_NO_INTERACTION=1 \
+    POETRY_VIRTUALENVS_CREATE=false
+
+# Install Poetry
+RUN pip install --upgrade pip \
+ && pip install "poetry==$POETRY_VERSION"
+
+# Set working directory
+WORKDIR /app
+
+# Pre-copy only dependencies for better caching
+COPY pyproject.toml poetry.lock* ./
+
+# Install dependencies (skip installing the project itself)
+RUN poetry install --no-root
+
+# Copy all project files
+COPY . .
+
+# EXPOSE is only needed if your app starts a web server or listens for network connections (e.g., FastAPI, Flask, Django)
+# You can omit EXPOSE if you're only running a local script like: python main.py
+# EXPOSE 8000
+
+# Default run command
+CMD ["poetry", "run", "python", "src/test_poetry/main.py"]
