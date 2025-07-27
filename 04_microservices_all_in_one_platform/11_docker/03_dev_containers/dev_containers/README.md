@@ -88,3 +88,14 @@ Docker Dev Containers represent a significant leap forward in developer experien
 ![alt text](image.png)
 
 - https://code.visualstudio.com/docs/devcontainers/tutorial
+
+
+## Command to run in dev container to execute main.py
+
+```bash
+- poetry run python src/dev_containers/main.py
+```
+
+```bash
+- poetry run uvicorn src.dev_containers.main:app --relaod
+```
