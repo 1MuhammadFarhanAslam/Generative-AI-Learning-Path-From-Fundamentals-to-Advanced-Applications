@@ -1,0 +1,22 @@
+version: "3.9"  # Docker Compose file format version (ensure your Docker supports this)
+
+services:
+  fastapi-app:  # Name of the service (you can call it anything)
+    build:
+      context: ./  # Use current directory as build context
+      dockerfile: Dockerfile.dev  # Use the Dockerfile in the current directory to build the image
+    container_name: fastapi-dev  # Optional: set a custom container name for easier reference
+
+    ports:
+      - "8000:8000"  # Map host port 8000 to container port 8000 (FastAPI default)
+
+    volumes:
+      - .:/app  # Mount current project directory into the container at /app
+                # Enables live code reload during development
+
+    environment:
+      - POETRY_VERSION=2.1.3
+      - POETRY_NO_INTERACTION=1
+      - POETRY_VIRTUALENVS_CREATE=false
+    command: >
+      poetry run uvicorn docker_compose.main:app --host 0.0.0.0 --port 8000 --reload

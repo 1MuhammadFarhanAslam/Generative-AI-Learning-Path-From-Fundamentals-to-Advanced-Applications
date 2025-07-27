@@ -1,0 +1,21 @@
+[project]
+name = "docker-compose"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Muhammad Farhan Aslam",email = "farhanmehar422538@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "fastapi[standard] (>=0.116.1,<0.117.0)",
+    "uvicorn (>=0.35.0,<0.36.0)"
+]
+
+[tool.poetry]
+packages = [{include = "docker_compose", from = "src"}]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
