@@ -1,0 +1,41 @@
+version: "3.9" # We add version for the reason if we make changes in a file we can easily track it using its version.
+name: fastapi
+
+services:
+  api:
+    build:
+      context: ./
+      dockerfile: Dockerfile.dev
+    container_name: fastapi_app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres_db
+    env_file:
+      - .env
+
+    networks:
+      - fastapi_network
+
+  postgres_db:
+    image: postgres:latest
+    container_name: postgres_container
+    restart: always
+    env_file:
+    - .env
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data #data on host machine
+    networks:
+      - fastapi_network
+
+volumes: # This volume is used to persist PostgreSQL data in the local machine so that it is not lost when the container is stopped or removed.
+  postgres_data:
+    driver: local # This volume is used to persist PostgreSQL data in the local machine.
+
+networks:
+  fastapi_network:
+    driver: bridge # This network is used to connect the FastAPI and PostgreSQL containers. It allows them to communicate with each other using their container names as hostnames.
+# This network is used to connect the FastAPI and PostgreSQL containers. It allows them to communicate with each other using their container names as hostnames.
+# This is useful for microservices architecture where different services need to communicate with each other.
